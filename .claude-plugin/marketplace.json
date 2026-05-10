@@ -1,0 +1,15 @@
+{
+  "name": "gosymdb",
+  "owner": {
+    "name": "walkindude",
+    "url": "https://github.com/walkindude"
+  },
+  "plugins": [
+    {
+      "name": "gosymdb",
+      "source": "./",
+      "description": "Go symbol and call-graph database — replaces grep for code navigation",
+      "version": "0.1.0"
+    }
+  ]
+}
