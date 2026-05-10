@@ -20,7 +20,7 @@ Three focused skills that replace grep for Go code navigation in Claude Code.
 **1. Add this repo as a marketplace:**
 
 ```
-/plugin marketplace add github:parMaster/gosymdb
+/plugin marketplace add parMaster/gosymdb
 ```
 
 **2. Install the plugin:**
