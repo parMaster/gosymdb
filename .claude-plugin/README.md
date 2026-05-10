@@ -29,7 +29,19 @@ Three focused skills that replace grep for Go code navigation in Claude Code.
 /plugin install gosymdb@gosymdb
 ```
 
-**3. Reload:**
+**3. Allow gosymdb commands without approval prompts** (recommended):
+
+Add to `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(gosymdb *)"]
+  }
+}
+```
+
+**4. Reload:**
 
 ```
 /reload-plugins
