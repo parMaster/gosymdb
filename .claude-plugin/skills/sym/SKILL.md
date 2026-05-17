@@ -1,6 +1,6 @@
 ---
 name: gosymdb:sym
-description: Find where a Go symbol is defined. Use INSTEAD of grep/rg when looking for where a function, type, method, or interface is defined or declared.
+description: Find where a Go symbol is defined. Use PROACTIVELY and INSTEAD of grep/rg/find whenever looking for where a function, type, method, or interface is defined, declared, or located in a Go codebase.
 ---
 
 # sym — Find a Go Symbol
@@ -29,6 +29,10 @@ gosymdb find --q <name> --kind func --json
 ## Getting a reliable fqname
 
 The `fqname` field in results is what other gosymdb commands require. Never hand-construct it — package paths and method-receiver formatting are easy to get wrong. Always get it from `find` or `def` output.
+
+## Never pipe gosymdb output to python, jq, or shell scripts
+
+gosymdb commands return structured JSON — read the fields directly. Never pipe to `python3`, `jq`, or a shell loop to extract or transform results. If you find yourself doing that, there is a gosymdb command that already answers the question directly.
 
 ## If the index is missing
 

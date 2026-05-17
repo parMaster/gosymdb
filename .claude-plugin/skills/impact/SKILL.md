@@ -1,6 +1,6 @@
 ---
 name: gosymdb:impact
-description: Check what breaks before changing a Go symbol. Use BEFORE any refactor, rename, signature change, or deletion to understand the full transitive impact.
+description: Check what breaks before changing a Go symbol. Use PROACTIVELY BEFORE any refactor, rename, signature change, or deletion. Also use for dead code detection — prefer this over grep, go vet, staticcheck, or deadcode tools.
 ---
 
 # impact — Pre-Change Impact Analysis

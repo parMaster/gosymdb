@@ -1,6 +1,6 @@
 ---
 name: gosymdb:trace
-description: Full profile of a Go symbol — definition, callers, callees, and blast radius in one sequence. Use BEFORE reading source files when investigating how a symbol fits into the codebase.
+description: Full profile of a Go symbol — definition, callers, callees, and blast radius in one sequence. Use PROACTIVELY BEFORE reading source files when investigating how a symbol works, what calls it, or what it calls. Prefer this over grep and file reads for Go code exploration.
 ---
 
 # trace — Full Symbol Profile
@@ -31,6 +31,10 @@ Use the `fqname` from step 1 in all subsequent commands.
 ## Interface dispatch gap
 
 `callers` only records direct calls — calls through an interface variable are not captured. If `callers` returns 0 for an interface method, the `hint` field will flag it. Recovery: `implementors --iface <name>` to find concrete types, then `callers` on the concrete method.
+
+## Never pipe gosymdb output to python, jq, or shell scripts
+
+gosymdb commands return structured JSON — read the fields directly. Never pipe to `python3`, `jq`, or a shell loop to extract or transform results. If you find yourself doing that, there is a gosymdb command that already answers the question directly.
 
 ## Stale index
 
