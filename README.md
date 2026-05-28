@@ -104,6 +104,22 @@ This is the recommended path for agentic use. Agents lose track of CLI tools men
 
 Restart Claude Code and all `gosymdb_*` tools appear in the MCP tool list. After upgrading the gosymdb binary, cli-bridge [auto-refreshes](https://github.com/walkindude/cli-bridge/blob/master/AGENTS.md#the-manifest-convention) the spec on its next startup — no manual re-register.
 
+### Enforcement hooks (recommended)
+
+Two `PreToolUse` hooks prevent Claude from reaching for inferior fallbacks in Go projects:
+
+- **block-explore-in-go** — denies the `Explore` subagent when `go.mod` is present, redirecting to gosymdb skills. The built-in session default ("use Explore for broad searches") conflicts with gosymdb's CLAUDE.md rules; the hook wins unconditionally.
+- **block-gosymdb-pipe** — denies any Bash command that pipes `gosymdb` output to `python` or `jq`. gosymdb returns structured JSON; piping to a parser is always the wrong move.
+
+Install both with one command:
+
+```bash
+make install-hooks
+# or: python3 install-hooks.py
+```
+
+The script copies the hook scripts to `~/.claude/hooks/` and merges the wiring into `~/.claude/settings.json`. It is idempotent — safe to run again after upgrading. Restart Claude Code once to activate.
+
 ## Commands
 
 | Command | Description |

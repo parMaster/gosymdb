@@ -1,7 +1,7 @@
 VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null || printf "dev-%s" $$(git rev-parse --short HEAD 2>/dev/null || echo unknown))
 LDFLAGS := -ldflags "-X github.com/walkindude/gosymdb/internal/cmd.Version=$(VERSION)"
 
-.PHONY: build build-cgo test testbench lint clean
+.PHONY: build build-cgo test testbench lint clean install-hooks
 
 build:
 	go build $(LDFLAGS) -o gosymdb .
@@ -21,3 +21,6 @@ lint:
 
 clean:
 	rm -f gosymdb gosymdb-* *.sqlite
+
+install-hooks:
+	python3 install-hooks.py
