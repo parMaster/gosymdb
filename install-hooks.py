@@ -26,6 +26,12 @@ HOOK_ENTRIES = [
         "statusMessage": "Checking gosymdb usage...",
     },
     {
+        "matcher":       "Bash",
+        "script":        "block-go-symbol-grep.py",
+        "command":       "python3 ~/.claude/hooks/block-go-symbol-grep.py",
+        "statusMessage": "Checking for Go symbol grep...",
+    },
+    {
         "matcher":       "Agent",
         "script":        "block-explore-in-go.py",
         "command":       "python3 ~/.claude/hooks/block-explore-in-go.py",

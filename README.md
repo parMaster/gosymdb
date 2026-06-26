@@ -106,12 +106,13 @@ Restart Claude Code and all `gosymdb_*` tools appear in the MCP tool list. After
 
 ### Enforcement hooks (recommended)
 
-Two `PreToolUse` hooks prevent Claude from reaching for inferior fallbacks in Go projects:
+Three `PreToolUse` hooks prevent Claude from reaching for inferior fallbacks in Go projects:
 
-- **block-explore-in-go** — denies the `Explore` subagent when `go.mod` is present, redirecting to gosymdb skills. The built-in session default ("use Explore for broad searches") conflicts with gosymdb's CLAUDE.md rules; the hook wins unconditionally.
+- **block-explore-in-go** — denies the `Explore` subagent when `go.mod` is present **and** the prompt signals Go-symbol intent (mentions `func`/`type`/`interface`/`struct`/`method`/`symbol`/`caller`/`implementation`/`.go`, …), redirecting to gosymdb skills. The built-in session default ("use Explore for broad searches") conflicts with gosymdb's CLAUDE.md rules; the hook wins unconditionally. General, non-symbol exploration of a Go repo passes through.
+- **block-go-symbol-grep** — denies a Bash `grep`/`rg`/`git grep` that targets `.go` files, or searches for a Go declaration keyword (`func`/`type`/`interface`/`struct`) inside a Go module. This is the symbol-lookup case gosymdb owns; the `go.mod` gate keeps it from firing on non-Go projects. Plain text/comment/string searches that don't look like a declaration are unaffected.
 - **block-gosymdb-pipe** — denies any Bash command that pipes `gosymdb` output to `python` or `jq`. gosymdb returns structured JSON; piping to a parser is always the wrong move.
 
-Install both with one command:
+Install them with one command:
 
 ```bash
 make install-hooks
